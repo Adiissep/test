@@ -8,7 +8,7 @@
                 <a href="{{url('master-items')}}" class="btn btn-secondary">Kembali ke Daftar Item</a>
             </div>
             <div class="card">
-                <div class="card-header">Master Item</div>
+                <div class="card-header">Master Item View</div>
 
                 <div class="card-body">
                     <table>

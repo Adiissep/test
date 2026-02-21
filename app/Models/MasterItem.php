@@ -10,4 +10,14 @@ class MasterItem extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    protected $table = 'master_items';
+    protected $fillable = [
+        'kode',
+        'nama',
+        'jenis',
+        'harga_beli',
+        'laba',
+        'supplier'
+    ];
 }
