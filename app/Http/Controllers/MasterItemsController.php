@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MasterItemsExport;
 use App\Models\Category;
 use App\Models\MasterItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MasterItemsController extends Controller
 {
@@ -219,6 +221,16 @@ class MasterItemsController extends Controller
         return $array[$random];
     }
 
+    /**
+     * Export Excel - Download semua Master Items
+     */
+    public function exportExcel()
+    {
+        $filename = 'MasterItems_' . now()->format('Ymd_His') . '.xlsx';
+        
+        return Excel::download(new MasterItemsExport, $filename);
+    }
+    
     private function getRandomJenis()
     {
         $array = ['Obat', 'Alkes', 'Matkes', 'Umum', 'ATK'];
