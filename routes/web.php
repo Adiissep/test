@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,13 @@ Route::post('/master-items/form/{method}/{id?}', [App\Http\Controllers\MasterIte
 Route::get('/master-items/view/{kode}', [App\Http\Controllers\MasterItemsController::class, 'singleView']);
 Route::get('/master-items/delete/{id}', [App\Http\Controllers\MasterItemsController::class, 'delete']);
 
-
 Route::get('/master-items/update-random-data', [App\Http\Controllers\MasterItemsController::class, 'updateRandomData']);
 
-
+// Routes untuk Categories
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/search', [CategoryController::class, 'search']);
+Route::get('/categories/form/{method}/{id?}', [CategoryController::class, 'formView']);
+Route::post('/categories/form/{method}/{id?}', [CategoryController::class, 'formSubmit']);
+Route::get('/categories/view/{kode}', [CategoryController::class, 'singleView']);
+Route::get('/categories/delete/{id}', [CategoryController::class, 'delete']);
+Route::get('/categories/export-pdf/{kode}', [CategoryController::class, 'exportPdf']);

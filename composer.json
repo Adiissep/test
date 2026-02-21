@@ -11,7 +11,8 @@
         "laravel/framework": "^11.44.1",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "laravel/ui": "^4.0"
+        "laravel/ui": "^4.0",
+        "maatwebsite/excel": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

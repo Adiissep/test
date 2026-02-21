@@ -40,24 +40,44 @@
                 var data = results.data
 
                 $.each(data, function(index, item) {
-                    array_temp = [];
                     var harga_jual = item.harga_beli + item.harga_beli * item.laba / 100;
                     harga_jual = Math.round(harga_jual)
                     var kode = item.kode;
 
-                    var html = `<a href="{{url('master-items/view/')}}/` + kode + `" class="btn btn-primary">View</a>`
+                    var viewBtn = `<a href="{{url('master-items/view/')}}/` + kode + `" class="btn btn-primary btn-sm">View</a>`
 
-                    $.each(item, function(obj_name, obj_value) {
-                        if (obj_name == 'laba') return false;
-                        array_temp.push(obj_value)
-                    })
-                    array_temp.push(harga_jual)
-                    array_temp.push(item.supplier)
-                    array_temp.push(html)
+                    var fotoHtml = '';
+                    if (item.foto && item.foto !== null && item.foto !== '') {
+                        fotoHtml = `<img src="{{ url('storage/items') }}/` + item.foto + `" alt="Foto" width="50" height="50" style="object-fit: cover;" onerror="this.onerror=null; this.src='https://via.placeholder.com/50';">`;
+                    } else {
+                        fotoHtml = `<span class="text-muted">No Image</span>`;
+                    }
 
+                    // Categories
+                    var categoriesHtml = '';
+                    if (item.categories && item.categories !== '') {
+                        categoriesHtml = item.categories;
+                    } else {
+                        categoriesHtml = '<span class="text-muted">-</span>';
+                    }
 
-                    dataTableObj.row.add(array_temp).draw(true);
+                    // Susun data sesuai urutan kolom di tabel (9 kolom)
+                    var rowData = [
+                        item.kode,           // 1. Kode
+                        item.nama,           // 2. Nama
+                        item.jenis,          // 3. Jenis
+                        'Rp ' + Number(item.harga_beli).toLocaleString('id-ID'),  // 4. Harga Beli
+                        'Rp ' + Number(harga_jual).toLocaleString('id-ID'),       // 5. Harga Jual
+                        item.supplier,       // 6. Supplier
+                        categoriesHtml,      // 7. Categories
+                        fotoHtml,            // 8. Foto
+                        viewBtn              // 9. View
+                    ];
+
+                    dataTableObj.row.add(rowData).draw(false);
                 });
+                
+                dataTableObj.draw();
                 $('#loading-filter').hide();
             },
             error: function(xhr, textStatus, errorThrown) {
